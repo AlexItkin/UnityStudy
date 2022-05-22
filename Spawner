@@ -1,0 +1,36 @@
+sing System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Spawner : MonoBehaviour
+{
+    gameTimer spawnTimer;
+    public float spawnDelay;
+    float startTime;
+    
+    public GameObject objectToSpawn;
+    // Start is called before the first frame update
+    void Start()
+    {
+        //create timer and start it
+        spawnTimer = gameObject.AddComponent<gameTimer>();
+        spawnTimer.Duration = spawnDelay;
+        startTime = Time.time;
+        spawnTimer.Run();
+        
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //If timer finished and is not running spawn an object
+        if(spawnTimer.Finished && !spawnTimer.Running)
+        {
+            Instantiate(objectToSpawn, transform.position, transform.rotation);
+            startTime = Time.time;
+            spawnTimer.Run();
+            Debug.Log("Object Spawned");
+        }
+    }
+}
