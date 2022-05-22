@@ -1,0 +1,60 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+public class gameTimer : MonoBehaviour
+{
+    public float totalSeconds = 0;
+    float elapsedSeconds = 0;
+    public bool running = false;
+    bool started = false;
+    
+
+    //Timer Countdown
+    void Update()
+    {
+        if(running)
+        {
+            elapsedSeconds += Time.deltaTime;
+            if(elapsedSeconds >= totalSeconds)
+            {
+                running = false;
+            }
+        }
+    }
+    
+    //set the duration of timer
+    public float Duration
+    {
+        set
+        {
+            if (!running)
+            {
+                totalSeconds = value;
+            }
+        }
+    }
+
+    //check if timer finished
+    public bool Finished
+    {
+        get { return started && !running; }
+    }
+    
+    //check if running
+    public bool Running
+    {
+        get { return running; }
+    }
+    
+    //start the timer
+    public void Run()
+    {
+        if (totalSeconds > 0)
+        {
+            started = true;
+            running = true;
+        }
+    }
+}
